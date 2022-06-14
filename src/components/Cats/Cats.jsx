@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import CatList from "./CatList";
+import { CatText } from "./CatText";
 
 const Cats = () => {
-    const url = `https://api.thecatapi.com/v1/images/search?breed_id=beng`;
+    const [currentCat, setCurrentCat] = useState("beng");
+
+    const url = `https://api.thecatapi.com/v1/images/search?breed_id=${currentCat}`;
 
     const [cat, setCat] = useState({
         name: "",
@@ -27,32 +30,34 @@ const Cats = () => {
                     setCats(cats.push(gatos));
                 });
                 console.log(cats);
-                console.log(typeof cats);
-            });
+            })
+            .catch((err) => console.error(err));
     };
 
     const message = "click to get a cat";
 
     const changeCat = async () => {
+        console.log(url);
+
         await fetch(url)
             .then((response) => response.json())
             .then((data) => {
                 const { url, breeds } = data[0];
                 const { name, origin, description, id } = breeds[0];
 
-                const gato = {
+                const newCat = {
                     name,
                     url,
                     origin,
                     description,
                     id,
                 };
-                setCat({ ...cat, ...gato });
+                setCat({ ...cat, ...newCat });
             });
     };
 
     return (
-        <div className="content-center my-0 mx-auto p-6 max-w-xl">
+        <div className="content-center my-0 mx-auto p-6 max-w-xl container">
             <button
                 className="text-md px-3 py-1 bg-fuchsia-300 hover:bg-fuchsia-600 ease-in-out duration-300 hover:text-white text-black rounded-md my-4 max-w-sm"
                 onClick={changeCat}
@@ -61,12 +66,15 @@ const Cats = () => {
             </button>
 
             <button
-                className="text-md px-3 py-1 bg-slate-300 hover:bg-slate-600 ease-in-out duration-300 hover:text-white text-black rounded-md my-4 max-w-sm ml-5"
+                className="text-md px-3 py-1 bg-slate-300 hover:bg-slate-600 ease-in-out duration-300 hover:text-white text-black rounded-md m-4 max-w-sm"
                 onClick={getCats}
             >
-                Get Cats
+                Get a list of cats
             </button>
-            <p>{cats === [] ? "" : `The cat name is ${cats.name}`}</p>
+
+            <CatText
+                onCatChange={(cat) => setCurrentCat(cat)}
+            />
 
             <p className="text-5xl text-center">
                 {cat.name === "" ? message : ""}
