@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CatList from "./CatList";
 import { CatText } from "./CatText";
 
@@ -18,27 +18,18 @@ const Cats = () => {
     const [cats, setCats] = useState([]);
 
     const getCats = async () => {
-        await fetch("https://api.thecatapi.com/v1/breeds")
+        await fetch(url)
             .then((res) => res.json())
             .then((res) => {
-                res.map((data) => {
-                    const { name, id } = data;
-                    const gatos = {
-                        name,
-                        id,
-                    };
-                    setCats(cats.push(gatos));
-                });
-                console.log(cats);
+                console.log(res);
             })
             .catch((err) => console.error(err));
     };
 
-    const message = "click to get a cat";
+    const message = "Select a cat and click the button to get the info";
 
     const changeCat = async () => {
-        console.log(url);
-
+        getCats()
         await fetch(url)
             .then((response) => response.json())
             .then((data) => {
@@ -58,24 +49,13 @@ const Cats = () => {
 
     return (
         <div className="content-center my-0 mx-auto p-6 max-w-xl container">
+            <CatList onCatChange={(cat) => setCurrentCat(cat)} />
             <button
-                className="text-md px-3 py-1 bg-fuchsia-300 hover:bg-fuchsia-600 ease-in-out duration-300 hover:text-white text-black rounded-md my-4 max-w-sm"
+                className="text-md px-3 py-1 bg-fuchsia-300 hover:bg-fuchsia-600 ease-in-out duration-300 hover:text-white text-black rounded-md mb-6 max-w-sm block mx-auto"
                 onClick={changeCat}
             >
-                Get a random cat
+                Get the cat info
             </button>
-
-            <button
-                className="text-md px-3 py-1 bg-slate-300 hover:bg-slate-600 ease-in-out duration-300 hover:text-white text-black rounded-md m-4 max-w-sm"
-                onClick={getCats}
-            >
-                Get a list of cats
-            </button>
-
-            <CatText
-                onCatChange={(cat) => setCurrentCat(cat)}
-            />
-
             <p className="text-5xl text-center">
                 {cat.name === "" ? message : ""}
             </p>
