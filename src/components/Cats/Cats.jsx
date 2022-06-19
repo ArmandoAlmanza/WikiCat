@@ -13,6 +13,11 @@ const Cats = () => {
         origin: "",
         description: "",
         id: "",
+        adaptability: 0,
+        affection_level: 0,
+        dog_friendly: 0,
+        energy_level: 0,
+        social_needs: 0,
     });
 
     const [cats, setCats] = useState([]);
@@ -29,12 +34,22 @@ const Cats = () => {
     const message = "Select a cat and click the button to get the info";
 
     const changeCat = async () => {
-        getCats()
+        getCats();
         await fetch(url)
             .then((response) => response.json())
             .then((data) => {
                 const { url, breeds } = data[0];
-                const { name, origin, description, id } = breeds[0];
+                const {
+                    name,
+                    origin,
+                    description,
+                    id,
+                    adaptability,
+                    affection_level,
+                    dog_friendly,
+                    energy_level,
+                    social_needs,
+                } = breeds[0];
 
                 const newCat = {
                     name,
@@ -42,6 +57,11 @@ const Cats = () => {
                     origin,
                     description,
                     id,
+                    adaptability,
+                    affection_level,
+                    dog_friendly,
+                    energy_level,
+                    social_needs,
                 };
                 setCat({ ...cat, ...newCat });
             });
@@ -66,7 +86,30 @@ const Cats = () => {
                     : `This cat has his origin in ${cat.origin}`}
             </p>
             <p className="mb-4 text-xl">{cat.description}</p>
-            <img src={cat.url} alt={cat.id} />
+            <img src={cat.url} alt={cat.id} className="mb-4" />
+            {cat.description === "" ? (
+                ""
+            ) : (
+                <div>
+                    <p className="mb-4 text-xl">
+                        This cat is{" "}
+                        {cat.adaptability <= 3
+                            ? "not very adaptable to new places"
+                            : "very adaptive to new places"}{" "}
+                        his adaptability level is: {cat.adaptability}
+                    </p>
+                    <p className="mb-4 text-xl">{cat.affection_level}</p>
+                    <p className="mb-4 text-xl">{cat.dog_friendly}</p>
+                    <p className="mb-4 text-xl">{cat.energy_level}</p>
+                    <p className="mb-4 text-xl">
+                        This cat is{" "}
+                        {cat.social_needs <= 3
+                            ? "not very sotiable"
+                            : "very sotiable"}{" "}
+                        his social level is: {cat.social_needs}
+                    </p>
+                </div>
+            )}
         </div>
     );
 };
