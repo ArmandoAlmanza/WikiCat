@@ -8,15 +8,13 @@ import Header from "./components/Header/Header";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <Header />
-            <Routes>
-                <Route path="/WikiCat/" element={<App />} />
-                <Route path="/" element={<App />} />
-                <Route path="cats" element={<Cats />} />
-            </Routes>
-            <Footer />
-        </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+        <Header />
+        <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="WikiCat" element={<App />} />
+            <Route path="cats" element={<Cats />} />
+        </Routes>
+        <Footer />
+    </BrowserRouter>
 );
