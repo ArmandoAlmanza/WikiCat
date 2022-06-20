@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path="/WikiCat" element={<App />} />
+                <Route path="/WikiCat/" element={<App />} />
                 <Route path="/" element={<App />} />
                 <Route path="cats" element={<Cats />} />
             </Routes>
