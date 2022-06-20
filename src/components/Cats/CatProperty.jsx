@@ -1,10 +1,13 @@
-const CatProperty = ({name, property}) => {
+const CatProperty = ({ propertyLevel, messageHigh, messageLow }) => {
     return (
         <div>
-            <p>The cat has this {name} level {property} </p>
-			<p>{
-				property > 3 ? `Has a very high ${name} level` : ``
-			} </p>
+            <p className="mb-4 text-xl">
+                This cat is {""}
+                {propertyLevel <= 3 ? messageLow : messageHigh}{" "}
+                <span className="text-purple-600">
+                    His affection level is: {propertyLevel}
+                </span>
+            </p>
         </div>
     );
 };

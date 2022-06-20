@@ -78,10 +78,11 @@ const CatList = ({ onCatChange }) => {
             <select
                 name="cats"
                 className="form-select appearance-none
+                mt-2
                 block
                 w-full
                 px-3
-                py-1.5
+                py-2
                 text-base
                 font-normal
                 text-gray-700
@@ -90,7 +91,7 @@ const CatList = ({ onCatChange }) => {
                 rounded
                 transition
                 ease-in-out
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                focus:text-gray-700 focus:bg-white focus:border-violet-600 focus:outline-none"
                 onChange={(e) => onCatChange(e.target.value)}
             >
                 {cats.map((element) => (
